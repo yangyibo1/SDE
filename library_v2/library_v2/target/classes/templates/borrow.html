@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Borrow</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    form {
+      padding-top: 10px;
+      padding-bottom: 20px;
+    }
+
+    th {
+      color: white;
+    }
+
+    td {
+      color: white;
+    }
+
+    .pagination-container {
+      display: flex;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div th:replace="head.html"></div>
+</nav>
+
+<!-- Filter Section -->
+<section class="container mt-5">
+  <h1>Browse Books</h1>
+  <form class="form-inline" name="searchForm" method="post">
+    <div class="form-group">
+      <label for="status">Status:&nbsp;&nbsp;</label>
+      <select class="form-control" id="status" name="status">
+        <option th:each="status: ${statusList}" th:value="${status}" th:text="${status}"></option>
+      </select>
+    </div>
+    &nbsp;&nbsp;
+    <input id="page" type="hidden" name="page" value="1">
+    <button type="submit" class="btn btn-primary">Search</button>
+  </form>
+
+  <input id="error" type="hidden" th:if="${error != null}" th:value="${error}"/>
+
+  <!-- Article List Table -->
+  <div class="table-responsive">
+
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Status</th>
+        <th>CheckoutDate</th>
+        <th>DueDate</th>
+        <th>ReturnDate</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>DelayFee</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <!-- Use Thymeleaf to iterate over the adviceList and populate the table rows -->
+
+      <tr th:each="borrow : ${pageItems}">
+        <td th:text="${borrow.status}"></td>
+        <td th:text="${borrow.checkoutDate}"></td>
+        <td th:text="${borrow.dueDate}"></td>
+        <td th:text="${borrow.returnDate}"></td>
+        <td th:text="${borrow.book.title}"></td>
+        <td th:text="${borrow.book.author}"></td>
+        <td th:text="${borrow.delayFee}"></td>
+        <td>
+          <a th:if="${borrow.status == 'checkout'}" th:href="'/return?id=' + ${borrow.id}">
+            <button class="btn btn-primary ml-auto">Return</button>
+          </a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="pagination-container">
+      <nav aria-label="Page navigation">
+        <ul class="pagination">
+          <li class="page-item">
+            <button class="page-link" aria-label="Previous" th:value="${pagePrev}">
+              <span aria-hidden="true">&laquo;</span>
+            </button>
+          </li>
+          <li class="page-item"><a class="page-link" th:value="${pageCurr}" th:text="${pageCurr}"></a></li>
+          <li class="page-item">
+            <button class="page-link" aria-label="Next" th:value="${pageNext}">
+              <span aria-hidden="true">&raquo;</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+</div>
+
+</section>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+  const error = $("#error").val()
+  if (error != undefined && error.length > 0) {
+    alert(error)
+  }
+
+  $(".page-link").click(function() {
+    const pageValue = $(this).attr("value");
+    console.log(pageValue)
+    $("#page").val(pageValue);
+
+    $("form").submit();
+  });
+</script>
+</body>
+</html>
