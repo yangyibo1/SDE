@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rules</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<style>
+  p {
+    font-size: 20px;
+  }
+
+  .text-overlay h1 {
+    font-size: 80px;
+    font-weight: bold;
+  }
+
+  .text-overlay p {
+    color: orange;
+  }
+
+  body {
+    background-color: #254154;
+  }
+
+  h1 {
+    color: white;
+  }
+
+  .rules-content {
+    font-size: 25px;
+    color: white;
+  }
+
+</style>
+<body>
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div th:replace="head.html"></div>
+</nav>
+
+<!-- Introduction Section -->
+<section class="container mt-5" id="content">
+  <div>
+    <h1>Rules of use</h1>
+    <ul class="rules-content">
+      <li>Only registered users can borrow books</li>
+      <li>Each user can borrow up to 5 books at the same time</li>
+      <li>Each loan book can be kept for a maximum of two weeks</li>
+      <li>Overdue loans will not continue until they are returned</li>
+      <li>A late fee of $1 will be charged for each day a book is more than 3 days overdue</li>
+    </ul>
+  </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

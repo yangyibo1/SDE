@@ -1,0 +1,16 @@
+<div th:if="${user}">
+  <a href="/profile">
+  <span th:text="${user.getUsername()}"/>
+  </a>
+  <a href="/logout">
+    <button class="btn btn-primary ml-auto">Logout</button>
+  </a>
+</div>
+<div th:unless="${user}">
+  <a href="/login">
+    <button id="login" class="btn btn-primary ml-auto">Login</button>
+  </a>
+  <a href="/register">
+    <button id="register" class="btn btn-primary ml-auto">Register</button>
+  </a>
+</div>
